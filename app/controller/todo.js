@@ -1,4 +1,5 @@
 const { handleError } = require("../../helper/utils");
+const { todoModel } = require("../db");
 const { createtodoModel, updatetodoModel, retrievesingletodoModel, retrievealltodoModel, deletetodoModel } = require("../model/todo");
 
 
@@ -30,7 +31,16 @@ const  updatetodoController = async (req, res, next) => {
     const { title, description , todoId , status } = req.body;
     
     try {
-         
+        const findtodo = await todoModel.findbyId(todoId)
+        if (!findtodo) {
+            return res.status(400).json({
+                status_code: 400,
+                status: true,
+                message: "todo does not exist",
+                data: tododetails,
+                
+              });
+        }
       const data = {
         title, description ,todoId , status
       };
@@ -55,7 +65,16 @@ const  singletodoController = async (req, res, next) => {
     const { todoId } = req.body;
     
     try {
-         
+        const findtodo = await todoModel.findbyId(todoId)
+        if (!findtodo) {
+            return res.status(400).json({
+                status_code: 400,
+                status: true,
+                message: "todo does not exist",
+                data: tododetails,
+                
+              });
+        }
       const data = {
         todoId
       };
@@ -80,7 +99,16 @@ const  deletetodoController = async (req, res, next) => {
     const { todoId } = req.body;
     
     try {
-         
+        const findtodo = await todoModel.findbyId(todoId)
+        if (!findtodo) {
+            return res.status(400).json({
+                status_code: 400,
+                status: true,
+                message: "todo does not exist",
+                data: tododetails,
+                
+              });
+        }
       const data = {
         todoId
       };
